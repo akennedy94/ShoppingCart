@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/public', express.static('public'));
+app.use('/public', express.static('../public'));
 
 const products = [
     {

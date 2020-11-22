@@ -7,7 +7,7 @@ const Cart = (props) => {
 
     async function getCart() {
       const response = await axios
-        .get('http://localhost:3001/api/cart')
+        .get('/api/cart')
         .then(response => {
           setCart(response.data);
         })
@@ -16,7 +16,7 @@ const Cart = (props) => {
 
     async function increaseItemQuantity(id) {
       const response = await axios
-        .patch('http://localhost:3001/api/cart', {
+        .patch('/api/cart', {
           productId: id,
           increase: true
         })
@@ -27,7 +27,7 @@ const Cart = (props) => {
 
     async function decreaseItemQuantity(id) {
       const response = await axios
-        .patch('http://localhost:3001/api/cart', {
+        .patch('/api/cart', {
           productId: id,
           increase: false
         })
@@ -38,7 +38,7 @@ const Cart = (props) => {
 
     async function clearCart() {
       const response = await axios
-        .delete('http://localhost:3001/api/cart', { 
+        .delete('/api/cart', { 
           data: {
           emptyCart: true
         }})
@@ -49,7 +49,7 @@ const Cart = (props) => {
 
     async function removeItemFromCart(id) {
       const response = await axios
-        .delete('http://localhost:3001/api/cart', { 
+        .delete('/api/cart', { 
           data: {
           emptyCart: false,
           productId: id

@@ -6,7 +6,7 @@ const Products = () => {
 
     async function getProduct() {
         const product = await axios
-            .get('http://localhost:3001/api/product')
+            .get('/api/product')
             .then(response => {
                 setProducts(response.data);
             })
@@ -15,7 +15,7 @@ const Products = () => {
 
     async function addProductToCart(addProductId, addProductAmount, addProductPrice, addProductName) {
         const response = await axios
-            .post('http://localhost:3001/api/cart', {
+            .post('/api/cart', {
                 productId: addProductId,
                 productName: addProductName,
                 productAmount: addProductAmount,
@@ -52,7 +52,7 @@ const Products = () => {
                                     return (
                                         <div className='col-lg-4'>
                                             <div className='card shop hover-border-0'>
-                                                <img src={'http://localhost:3001/' + product.productImage} alt='wrapkit' className='img-fluid' />
+                                                <img src={product.productImage} alt='wrapkit' className='img-fluid' />
                                                 <div className='card-img-overlay align-items-center'>
                                                     <button onClick={() => addProductToCart(product.productId, 1, product.productPrice, product.productName)} className='btn btn-md btn-info'>
                                                         Add to Cart

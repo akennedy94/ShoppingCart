@@ -1,9 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const PORT = 3001;
+const path = require('path');
+
 app.use(cors());
 app.use(express.json());
-app.use('/public', express.static('public'));
+app.use('/public', express.static('../public'));
 
 const products = [
     {
@@ -91,8 +94,6 @@ app.patch('/api/cart', (req, res) => {
     
     res.json(cart);
 });
-
-const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`);

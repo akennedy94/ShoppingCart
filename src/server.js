@@ -43,7 +43,7 @@ let cart = [];
 
 // display app
 app.get('/', (req, res) => {
-    res.sendFile("public/index.html");
+     res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
 // returns list of products

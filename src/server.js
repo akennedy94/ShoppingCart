@@ -41,6 +41,11 @@ const products = [
 
 let cart = [];
 
+// display app
+app.get('/', (req, res) => {
+    res.sendFile("public/index.html");
+});
+
 // returns list of products
 app.get('/api/product', (req, res) => {
     res.json(products);

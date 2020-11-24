@@ -37,6 +37,13 @@ const products = [
         productDescription: 'It\'s working!',
         productPrice: 60,
         productImage: 'public/productimg/test.png'
+    },
+    {
+        productId: '005',
+        productName: 'Kidding!',
+        productDescription: 'It\'s still working!',
+        productPrice: 23,
+        productImage: 'public/productimg/test.png'
     }
 ];
 
@@ -47,9 +54,21 @@ app.get('/', (req, res) => {
      res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
-// returns list of products
+// returns full list of products
 app.get('/api/product', (req, res) => {
     res.json(products);
+});
+
+// gets a single product
+app.get('/api/product/:id', (request, response) => {
+    const id = request.params.id
+    const product = products.find(product => product.productId === id)
+    response.json(product)
+  })
+  
+// gets the cart
+app.get('/api/cart', (req, res) => {
+    res.json(cart);
 });
 
 // if the item already exists in the cart, update the quantity
@@ -64,11 +83,6 @@ app.post('/api/cart', (req, res) => {
         cart.push(sentProduct);
     }
     
-    res.json(cart);
-});
-
-// gets the cart
-app.get('/api/cart', (req, res) => {
     res.json(cart);
 });
 

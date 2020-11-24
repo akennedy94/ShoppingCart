@@ -95,7 +95,7 @@ app.delete('/api/cart', (req, res) => {
         cart = [];
     } else {
         const index = cart.findIndex(item => item.productId === instructions.productId);
-        cart.splice(index, index + 1);
+        cart.splice(index, 1);
     }
     
     res.json(cart);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link, NavLink } from "react-router-dom"  
 import axios from 'axios'
 
 const Products = () => {
@@ -11,7 +12,7 @@ const Products = () => {
                 setProducts(response.data);
             })
             .catch(error => console.log(error));
-    }
+    };
 
     async function addProductToCart(addProductId, addProductAmount, addProductPrice, addProductName) {
         const response = await axios
@@ -35,9 +36,9 @@ const Products = () => {
                 <div className="banner-innerpage">
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="col-md-8 align-self-center text-center">
-                                <h1 className='title'>A listing of all of the products!</h1>
-                                <h6 classname='subtitle op-8'>Catchy reassurance of qualitity!</h6>
+                            <div className="col-md-8 mt-4 align-self-center text-center">
+                                <h1 className='title'>Etiam hendrerit tristique</h1>
+                                <h5 classname='subtitle op-8'>Donec nec lobortis purus</h5>
                             </div>
                         </div>
                     </div>
@@ -46,23 +47,40 @@ const Products = () => {
             <section>
                 <div className='container'>
                     <div className='row mt-5'>
-                        <div className='col-lg-9'>
-                            <div className='row shop-listing'>
-                                { products.map((product, i) => { 
+                        <div className='col-lg-12'>
+                            <div className='row'>
+                                { products.map((product) => { 
                                     return (
-                                        <div className='col-lg-4'>
-                                            <div className='card shop hover-border-0'>
+                                        <div className='col-lg-3'>
+                                            <div className='card hover-border-0'>
                                                 <img src={product.productImage} alt='wrapkit' className='img-fluid' />
-                                                <div className='card-img-overlay align-items-center'>
-                                                    <button onClick={() => addProductToCart(product.productId, 1, product.productPrice, product.productName)} className='btn btn-md btn-info'>
-                                                        Add to Cart
-                                                    </button>
-                                                </div>
                                             </div>
                                             <div className='card border-0'>
-                                                <h5>{product.productName}</h5>
+                                                <NavLink 
+                                                    to={{
+                                                        pathname:'/ProductPage',
+                                                        singleProduct: {
+                                                            productId: product.productId,
+                                                            productImage: product.productImage,
+                                                            productPrice: product.productPrice,
+                                                            productName: product.productName,
+                                                            productDescription: product.productDescription,
+                                                            detailedDescription: product.detailedDescription
+                                                        }
+                                                    }}
+                                                    style={{
+                                                        color:'black',
+                                                        fontWeight:'bold'
+                                                    }}
+                                                    >{product.productName}</NavLink>
                                                 <h6 classname='subtitle'>{product.productDescription}</h6>
                                                 <h5 className='font-medium m-b-30'>${product.productPrice}</h5>
+                                                <div>
+                                                    <button onClick={() => addProductToCart(product.productId, 1, product.productPrice, product.productName)} 
+                                                        className='btn btn-md btn-info'>
+                                                            Add to Cart
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     )})}

@@ -1,4 +1,4 @@
-import './App.css';
+import './App.css'
 import { 
   BrowserRouter as Router, 
   Switch, 
@@ -6,7 +6,8 @@ import {
 } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Products from './components/Products'
-import Cart from './components/Cart';
+import Cart from './components/Cart'
+import ProductPage from './components/ProductPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Products} />
           <Route exact path='/Cart' component={Cart} />
+          <Route exact path='/ProductPage' component={ProductPage} />
         </Switch>
       </div>
     </Router> 

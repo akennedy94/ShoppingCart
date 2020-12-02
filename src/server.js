@@ -12,38 +12,55 @@ app.use(express.static('../build'))
 const products = [
     {
         productId: '001',
-        productName: 'This could be',
-        productDescription: 'A concise',
+        productName: 'Vitae Volutpat',
+        productDescription: 'Donec faucibus ullamcorper iaculis',
         productPrice: 195,
-        productImage: 'public/productimg/test.png'
+        productImage: 'public/productimg/test.png',
+        detailedDescription: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
+                            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo 
+                            inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo`
     }, 
     {
         productId: '002',
-        productName: 'the title',
-        productDescription: 'eye catching',
+        productName: 'Habitasse Platea Dictumst',
+        productDescription: 'Mollis augue nisl quis',
         productPrice: 255,
-        productImage: 'public/productimg/test.png'
+        productImage: 'public/productimg/test.png',
+        detailedDescription: `Sed convallis mi diam, non tempus neque consequat eget.
+                            Cras vel quam vel erat euismod pulvinar. Maecenas non luctus dolor. 
+                            Ut pulvinar quis metus ac dapibus. Vestibulum ut augue risus.`
     },
     {
         productId: '003',
-        productName: 'of your product!',
-        productDescription: 'description!',
+        productName: 'Aliquam eros',
+        productDescription: 'Aliquam dictum et purus',
         productPrice: 60,
-        productImage: 'public/productimg/test.png'
+        productImage: 'public/productimg/test.png',
+        detailedDescription: `Ut efficitur, lacus sed rutrum porta, ante orci ornare erat, 
+                            ac vehicula orci enim a sapien. Cras quis semper lectus. Phasellus ut ligula nisi. 
+                            Quisque vitae molestie mauris, sit amet interdum lectus.`
     },
     {
         productId: '004',
-        productName: 'Last item!',
-        productDescription: 'It\'s working!',
+        productName: 'Morbi eu erat',
+        productDescription: 'Pellentesque non felis',
         productPrice: 60,
-        productImage: 'public/productimg/test.png'
+        productImage: 'public/productimg/test.png',
+        detailedDescription: `Sed posuere diam sed tincidunt vestibulum. 
+                            Nam suscipit leo justo, ut malesuada erat blandit vel. Aliquam ac felis nulla.
+                            Sed faucibus gravida purus, sed vestibulum odio congue id. Mauris sit amet lorem porttitor, 
+                            porttitor nisl ac, cursus est. Quisque in dictum tortor.`
     },
     {
         productId: '005',
-        productName: 'Kidding!',
-        productDescription: 'It\'s still working!',
+        productName: 'Vestibulum ultrices',
+        productDescription: 'Sed commodo libero sed',
         productPrice: 23,
-        productImage: 'public/productimg/test.png'
+        productImage: 'public/productimg/test.png',
+        detailedDescription: `Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut 
+                            et voluptates repudiandae sint et molestiae non recusandae.
+                            Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur 
+                            aut perferendis doloribus asperiores repellat`
     }
 ];
 

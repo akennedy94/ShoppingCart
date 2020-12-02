@@ -3,17 +3,42 @@ import axios from 'axios'
 
 const ProductPage = ({location}) => {
     const [quantity, setQuantity] = useState(1);
-
+    const [cart, setCart] = useState([]);
+    
+    // TODO:
+    // once an item is placed in the cart through a different source
+    // this function then only updates the cart quantity by one
+    // it should update by the user specification 
     async function addProductToCart(addProductId, addProductAmount, addProductPrice, addProductName) {
-        const response = await axios
-            .post('/api/cart', {
+        if (cart.map(product => product.productId).includes(addProductId)) {
+            const response = await axios
+                .patch('/api/cart', {
                 productId: addProductId,
-                productName: addProductName,
-                productAmount: addProductAmount,
-                productPrice: addProductPrice,
-            })
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+                increase: true,
+                quantityToChange: quantity
+                })
+                .then(response => console.log(response))
+                .catch(error => console.log(error));
+        } else {
+            const response = await axios
+                .post('/api/cart', {
+                    productId: addProductId,
+                    productName: addProductName,
+                    productAmount: addProductAmount,
+                    productPrice: addProductPrice,
+                })
+                .then(response => console.log(response))
+                .catch(error => console.log(error));
+        }
+    }
+
+    async function getCart() {
+        const response = await axios
+          .get('/api/cart')
+          .then(response => {
+            setCart(response.data);
+          })
+          .catch(error => console.log(error));
     }
 
     const increaseItemQuantity = () => {
@@ -24,6 +49,11 @@ const ProductPage = ({location}) => {
         if (quantity - 1 === 0) return;
         setQuantity(quantity - 1);
     }
+
+    useEffect(() => {
+        getCart();
+        console.log(cart)
+    }, []);
 
     return (
         <main>

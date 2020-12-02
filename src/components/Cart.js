@@ -18,7 +18,8 @@ const Cart = (props) => {
       const response = await axios
         .patch('/api/cart', {
           productId: id,
-          increase: true
+          increase: true,
+          quantityToChange: 1
         })
         .then(response => console.log(response))
         .catch(error => console.log(error));
@@ -29,7 +30,8 @@ const Cart = (props) => {
       const response = await axios
         .patch('/api/cart', {
           productId: id,
-          increase: false
+          increase: false,
+          quantityToChange: 1
         })
         .then(response => console.log(response))
         .catch(error => console.log(error));

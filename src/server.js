@@ -4,10 +4,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const path = require('path');
 
-app.use(cors());
-app.use(express.json());
-app.use('/public', express.static(path.join(__dirname, '../public')));
-app.use(express.static('../build'))
+app.use(cors())
+    .use(express.json())
+    .use('/public', express.static(path.join(__dirname, '../public')))
+    .use(express.static('../build'));
 
 const products = [
     {
@@ -78,9 +78,9 @@ app.get('/api/product', (req, res) => {
 
 // gets a single product
 app.get('/api/product/:id', (request, response) => {
-    const id = request.params.id
-    const product = products.find(product => product.productId === id)
-    response.json(product)
+    const id = request.params.id;
+    const product = products.find(product => product.productId === id);
+    response.json(product);
   })
   
 // gets the cart
@@ -124,9 +124,9 @@ app.patch('/api/cart', (req, res) => {
     const index = cart.findIndex(item => item.productId === sentProduct.productId);
     
     if (sentProduct.increase) {
-        cart[index].productAmount = cart[index].productAmount + 1;
+        cart[index].productAmount = cart[index].productAmount + sentProduct.quantityToChange;
     } else if (cart[index].productAmount - 1 > 0) {
-        cart[index].productAmount = cart[index].productAmount - 1;
+        cart[index].productAmount = cart[index].productAmount - sentProduct.quantityToChange;
     } 
     
     res.json(cart);

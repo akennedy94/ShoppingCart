@@ -11,7 +11,7 @@ const Cart = (props) => {
         .then(response => {
           setCart(response.data);
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
     }
 
     async function increaseItemQuantity(id) {
@@ -32,7 +32,7 @@ const Cart = (props) => {
           increase: false
         })
         .then(response => console.log(response))
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
         getCart();
     }
 
@@ -97,16 +97,16 @@ const Cart = (props) => {
                         <th className='spacer'></th>
                         <th className="b-0 text-right">Total Price</th>
                       </tr>
-                      {cart.map(product => (
+                      { cart.map(product => (
                         <tr>
                           <td>{product.productName}</td>
                           <td>${product.productPrice}</td>
                           <td>
+                          <button onClick={() => decreaseItemQuantity(product.productId)}
+                              className="btn btn-primary btn-sm">-</button>
+                            {product.productAmount}
                             <button onClick={() => increaseItemQuantity(product.productId)}
                               className="btn btn-primary btn-sm">+</button>
-                            {product.productAmount}
-                            <button onClick={() => decreaseItemQuantity(product.productId)}
-                              className="btn btn-primary btn-sm">-</button>
                           </td>
                           <td>
                             <button onClick={() => removeItemFromCart(product.productId)}

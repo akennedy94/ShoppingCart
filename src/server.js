@@ -1,62 +1,62 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3001;
-const path = require('path');
+const path = require("path");
 
 app.use(cors())
     .use(express.json())
-    .use('/public', express.static(path.join(__dirname, '../public')))
-    .use(express.static('../build'));
+    .use("/public", express.static(path.join(__dirname, "../public")))
+    .use(express.static("../build"));
 
 const products = [
     {
-        productId: '001',
-        productName: 'Vitae Volutpat',
-        productDescription: 'Donec faucibus ullamcorper iaculis',
+        productId: "001",
+        productName: "Vitae Volutpat",
+        productDescription: "Donec faucibus ullamcorper iaculis",
         productPrice: 195,
-        productImage: 'public/productimg/test.png',
+        productImage: "public/productimg/test.png",
         detailedDescription: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
                             doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo 
                             inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo`
     }, 
     {
-        productId: '002',
-        productName: 'Habitasse Platea Dictumst',
-        productDescription: 'Mollis augue nisl quis',
+        productId: "002",
+        productName: "Habitasse Platea Dictumst",
+        productDescription: "Mollis augue nisl quis",
         productPrice: 255,
-        productImage: 'public/productimg/test.png',
+        productImage: "public/productimg/test.png",
         detailedDescription: `Sed convallis mi diam, non tempus neque consequat eget.
                             Cras vel quam vel erat euismod pulvinar. Maecenas non luctus dolor. 
                             Ut pulvinar quis metus ac dapibus. Vestibulum ut augue risus.`
     },
     {
-        productId: '003',
-        productName: 'Aliquam eros',
-        productDescription: 'Aliquam dictum et purus',
+        productId: "003",
+        productName: "Aliquam eros",
+        productDescription: "Aliquam dictum et purus",
         productPrice: 60,
-        productImage: 'public/productimg/test.png',
+        productImage: "public/productimg/test.png",
         detailedDescription: `Ut efficitur, lacus sed rutrum porta, ante orci ornare erat, 
                             ac vehicula orci enim a sapien. Cras quis semper lectus. Phasellus ut ligula nisi. 
                             Quisque vitae molestie mauris, sit amet interdum lectus.`
     },
     {
-        productId: '004',
-        productName: 'Morbi eu erat',
-        productDescription: 'Pellentesque non felis',
+        productId: "004",
+        productName: "Morbi eu erat",
+        productDescription: "Pellentesque non felis",
         productPrice: 60,
-        productImage: 'public/productimg/test.png',
+        productImage: "public/productimg/test.png",
         detailedDescription: `Sed posuere diam sed tincidunt vestibulum. 
                             Nam suscipit leo justo, ut malesuada erat blandit vel. Aliquam ac felis nulla.
                             Sed faucibus gravida purus, sed vestibulum odio congue id. Mauris sit amet lorem porttitor, 
                             porttitor nisl ac, cursus est. Quisque in dictum tortor.`
     },
     {
-        productId: '005',
-        productName: 'Vestibulum ultrices',
-        productDescription: 'Sed commodo libero sed',
+        productId: "005",
+        productName: "Vestibulum ultrices",
+        productDescription: "Sed commodo libero sed",
         productPrice: 23,
-        productImage: 'public/productimg/test.png',
+        productImage: "public/productimg/test.png",
         detailedDescription: `Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut 
                             et voluptates repudiandae sint et molestiae non recusandae.
                             Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur 
@@ -67,30 +67,30 @@ const products = [
 let cart = [];
 
 // display app
-app.get('/', (req, res) => {
-     res.sendFile(path.resolve(__dirname, '../public/index.html'));
+app.get("/", (req, res) => {
+     res.sendFile(path.resolve(__dirname, "../public/index.html"));
 });
 
 // returns full list of products
-app.get('/api/product', (req, res) => {
+app.get("/api/product", (req, res) => {
     res.json(products);
 });
 
 // gets a single product
-app.get('/api/product/:id', (request, response) => {
+app.get("/api/product/:id", (request, response) => {
     const id = request.params.id;
     const product = products.find(product => product.productId === id);
     response.json(product);
   })
   
 // gets the cart
-app.get('/api/cart', (req, res) => {
+app.get("/api/cart", (req, res) => {
     res.json(cart);
 });
 
 // if the item already exists in the cart, update the quantity
 // else add new item to cart
-app.post('/api/cart', (req, res) => {
+app.post("/api/cart", (req, res) => {
     const sentProduct = req.body;
     
     if (cart.map(product => product.productId).includes(sentProduct.productId)) {
@@ -105,7 +105,7 @@ app.post('/api/cart', (req, res) => {
 
 // checks to see if chart should be set to empty
 // else finds index of item to remove and splices it out
-app.delete('/api/cart', (req, res) => {
+app.delete("/api/cart", (req, res) => {
     const instructions = req.body;
     
     if (instructions.emptyCart) {
@@ -119,7 +119,7 @@ app.delete('/api/cart', (req, res) => {
 });
 
 // increases the productAmount
-app.patch('/api/cart', (req, res) => {
+app.patch("/api/cart", (req, res) => {
     const sentProduct = req.body;
     const index = cart.findIndex(item => item.productId === sentProduct.productId);
     

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 const Cart = (props) => {
     const [cart, setCart] = useState([]);
@@ -8,7 +8,7 @@ const Cart = (props) => {
 
     async function getCart() {
       const response = await axios
-        .get('/api/cart')
+        .get("/api/cart")
         .then(response => {
           setCart(response.data);
         })
@@ -17,7 +17,7 @@ const Cart = (props) => {
 
     async function increaseItemQuantity(id) {
       const response = await axios
-        .patch('/api/cart', {
+        .patch("/api/cart", {
           productId: id,
           increase: true,
           quantityToChange: 1
@@ -29,7 +29,7 @@ const Cart = (props) => {
 
     async function decreaseItemQuantity(id) {
       const response = await axios
-        .patch('/api/cart', {
+        .patch("/api/cart", {
           productId: id,
           increase: false,
           quantityToChange: 1
@@ -41,7 +41,7 @@ const Cart = (props) => {
 
     async function clearCart() {
       const response = await axios
-        .delete('/api/cart', { 
+        .delete("/api/cart", { 
           data: {
           emptyCart: true
         }})
@@ -52,7 +52,7 @@ const Cart = (props) => {
 
     async function removeItemFromCart(id) {
       const response = await axios
-        .delete('/api/cart', { 
+        .delete("/api/cart", { 
           data: {
           emptyCart: false,
           productId: id
@@ -97,14 +97,14 @@ const Cart = (props) => {
                         <th className="b-0">Name</th>
                         <th className="b-0">Price</th>
                         <th className="b-0">Quantity</th>
-                        <th className='spacer'></th>
+                        <th className="spacer"></th>
                         <th className="b-0 text-right">Total Price</th>
                       </tr>
                       { cart.map(product => (
                         <tr>
                           <td><NavLink 
                             to={{
-                                 pathname:'/ProductPage',
+                                 pathname:"/ProductPage",
                                   singleProduct: {
                                     productId: product.productId,
                                     productImage: product.productImage,
@@ -115,8 +115,8 @@ const Cart = (props) => {
                                 }
                                 }}
                                 style={{
-                                    color:'black',
-                                    fontWeight:'bold'
+                                    color:"black",
+                                    fontWeight:"bold"
                                 }}
                                 >{product.productName}
                           </NavLink></td>

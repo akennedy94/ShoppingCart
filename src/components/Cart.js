@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import { NavLink } from "react-router-dom";
+import axios from 'axios';
 
 const Cart = (props) => {
     const [cart, setCart] = useState([]);
@@ -101,7 +102,24 @@ const Cart = (props) => {
                       </tr>
                       { cart.map(product => (
                         <tr>
-                          <td>{product.productName}</td>
+                          <td><NavLink 
+                            to={{
+                                 pathname:'/ProductPage',
+                                  singleProduct: {
+                                    productId: product.productId,
+                                    productImage: product.productImage,
+                                    productPrice: product.productPrice,
+                                    productName: product.productName,
+                                    productDescription: product.productDescription,
+                                    detailedDescription: product.detailedDescription
+                                }
+                                }}
+                                style={{
+                                    color:'black',
+                                    fontWeight:'bold'
+                                }}
+                                >{product.productName}
+                          </NavLink></td>
                           <td>${product.productPrice}</td>
                           <td>
                           <button onClick={() => decreaseItemQuantity(product.productId)}

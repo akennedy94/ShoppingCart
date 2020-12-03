@@ -118,7 +118,7 @@ app.delete('/api/cart', (req, res) => {
     res.json(cart);
 });
 
-// increases the productAmount by plus or minus 1
+// increases the productAmount
 app.patch('/api/cart', (req, res) => {
     const sentProduct = req.body;
     const index = cart.findIndex(item => item.productId === sentProduct.productId);

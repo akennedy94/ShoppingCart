@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, NavLink } from "react-router-dom"  
+import { NavLink } from "react-router-dom"  
 import axios from 'axios'
 
 const Products = () => {
@@ -36,7 +36,7 @@ const Products = () => {
                 <div className="banner-innerpage">
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="col-md-8 mt-4 align-self-center text-center">
+                            <div className="col-md-8 mt-3 align-self-center text-center">
                                 <h1 className='title'>Etiam hendrerit tristique</h1>
                                 <h5 classname='subtitle op-8'>Donec nec lobortis purus</h5>
                             </div>
@@ -46,7 +46,7 @@ const Products = () => {
             </section>
             <section>
                 <div className='container'>
-                    <div className='row mt-5'>
+                    <div className='row mt-3'>
                         <div className='col-lg-12'>
                             <div className='row'>
                                 { products.map((product) => { 
@@ -74,10 +74,10 @@ const Products = () => {
                                                     }}
                                                     >{product.productName}</NavLink>
                                                 <h6 classname='subtitle'>{product.productDescription}</h6>
-                                                <h5 className='font-medium m-b-30'>${product.productPrice}</h5>
+                                                <h5 className='font-medium b-30'>${product.productPrice}</h5>
                                                 <div>
                                                     <button onClick={() => addProductToCart(product.productId, 1, product.productPrice, product.productName)} 
-                                                        className='btn btn-md btn-info'>
+                                                        className='btn btn-md btn-info ml-1 mb-3'>
                                                             Add to Cart
                                                     </button>
                                                 </div>

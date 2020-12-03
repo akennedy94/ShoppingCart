@@ -4,11 +4,7 @@ import axios from 'axios'
 const ProductPage = ({location}) => {
     const [quantity, setQuantity] = useState(1);
     const [cart, setCart] = useState([]);
-    
-    // TODO:
-    // once an item is placed in the cart through a different source
-    // this function then only updates the cart quantity by one
-    // it should update by the user specification 
+
     async function addProductToCart(addProductId, addProductAmount, addProductPrice, addProductName) {
         if (cart.map(product => product.productId).includes(addProductId)) {
             const response = await axios
@@ -52,7 +48,6 @@ const ProductPage = ({location}) => {
 
     useEffect(() => {
         getCart();
-        console.log(cart)
     }, []);
 
     return (
@@ -75,8 +70,8 @@ const ProductPage = ({location}) => {
                                     {quantity}
                                     <button onClick={increaseItemQuantity}
                                     className="btn btn-primary btn-sm">+</button>
-                                        <button onClick={() => addProductToCart(location.singleProduct.productId, quantity, location.singleProduct.productPrice, location.singleProduct.productName)}
-                                        className='btn btn-primary'>Add to cart</button>
+                                    <button onClick={() => addProductToCart(location.singleProduct.productId, quantity, location.singleProduct.productPrice, location.singleProduct.productName)}
+                                    className='btn btn-primary ml-3'>Add to cart</button>
                                 </div>
                         </div>
                     </div>

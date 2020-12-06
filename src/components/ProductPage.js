@@ -48,7 +48,7 @@ const ProductPage = ({location}) => {
 
     useEffect(() => {
         getCart();
-    }, []);
+    }, [cart]);
 
     return (
         <main>

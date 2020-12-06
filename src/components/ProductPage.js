@@ -64,23 +64,17 @@ const ProductPage = ({location}) => {
                             <h4>${location.singleProduct.productPrice}</h4>
                             <h3>{location.singleProduct.productDescription}</h3>
                             <p>{location.singleProduct.detailedDescription}</p>
-                                <div className="flex-row justify-content-center">
-                                    <button onClick={decreaseItemQuantity}
-                                    className="btn btn-primary btn-sm">-</button>
-                                    {quantity}
-                                    <button onClick={increaseItemQuantity}
-                                    className="btn btn-primary btn-sm">+</button>
-                                    <button onClick={() => addProductToCart(location.singleProduct.productId, quantity, location.singleProduct.productPrice, location.singleProduct.productName)}
-                                    className="btn btn-primary ml-3">Add to cart</button>
-                                </div>
+                            <div className="flex-row justify-content-center">
+                                <button onClick={decreaseItemQuantity}
+                                className="btn btn-primary btn-sm">-</button>
+                                {quantity}
+                                <button onClick={increaseItemQuantity}
+                                className="btn btn-primary btn-sm">+</button>
+                                <button onClick={() => addProductToCart(location.singleProduct.productId, quantity, 
+                                location.singleProduct.productPrice, location.singleProduct.productName)}
+                                className="btn btn-primary ml-3">Add to cart</button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <div className="container-fluid">
-                    <div className="d-flex flex-row">
-
                     </div>
                 </div>
             </section>

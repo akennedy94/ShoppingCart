@@ -65,7 +65,7 @@ const Cart = (props) => {
     const getSubtotal = () => {
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       const priceMap = cart.map(product =>  product.productPrice * product.productAmount);
-      return priceMap.reduce(reducer, 0)
+      return priceMap.reduce(reducer, 0);
     }
 
     useEffect(() => {
@@ -80,8 +80,8 @@ const Cart = (props) => {
               <div className="container">
                 <div className="row mt-3 justify-content-center">
                   <div className="col-md-6 align-self-center text-center">
-                    <h1 className="title">Cart Listing</h1>
-                    <h6 className="subtitle op-8">Ready to checkout?</h6>
+                    <h1 className="title">Vivamus ullamcorper lectus</h1>
+                    <h6 className="subtitle op-8">Suspendisse viverra mi nec</h6>
                   </div>
                 </div>
               </div>

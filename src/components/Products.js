@@ -56,7 +56,7 @@ const Products = () => {
                                                 <img src={product.productImage} alt="wrapkit" className="img-fluid" />
                                             </div>
                                             <div className="card border-0">
-                                                <NavLink 
+                                                <NavLink
                                                     to={{
                                                         pathname:"/ProductPage",
                                                         singleProduct: {

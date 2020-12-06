@@ -128,7 +128,7 @@ app.patch("/api/cart", (req, res) => {
     } else if (cart[index].productAmount - 1 > 0) {
         cart[index].productAmount = cart[index].productAmount - sentProduct.quantityToChange;
     } 
-    
+
     res.json(cart);
 });
 

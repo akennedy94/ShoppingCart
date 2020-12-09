@@ -77,10 +77,10 @@ app.get("/api/product", (req, res) => {
 });
 
 // gets a single product
-app.get("/api/product/:id", (request, response) => {
-    const id = request.params.id;
+app.get("/api/product/:id", (req, res) => {
+    const id = req.params.id;
     const product = products.find(product => product.productId === id);
-    response.json(product);
+    res.json(product);
   })
   
 // gets the cart

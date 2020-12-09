@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Cart = (props) => {
@@ -102,24 +102,13 @@ const Cart = (props) => {
                       </tr>
                       { cart.map(product => (
                         <tr>
-                          <td><NavLink 
-                            to={{
-                                 pathname:"/ProductPage",
-                                  singleProduct: {
-                                    productId: product.productId,
-                                    productImage: product.productImage,
-                                    productPrice: product.productPrice,
-                                    productName: product.productName,
-                                    productDescription: product.productDescription,
-                                    detailedDescription: product.detailedDescription
-                                }
-                                }}
-                                style={{
-                                    color:"black",
-                                    fontWeight:"bold"
-                                }}
-                                >{product.productName}
-                          </NavLink></td>
+                          <td>
+                            <Link to={`ProductPage/${product.productId}`}
+                                  style={{
+                                      color:"black",
+                                      fontWeight:"bold"
+                                  }}>{product.productName}</Link>
+                          </td>
                           <td>${product.productPrice}</td>
                           <td>
                           <button onClick={() => decreaseItemQuantity(product.productId)}

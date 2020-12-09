@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { NavLink } from "react-router-dom"  
+import { Link } from "react-router-dom"  
 import axios from "axios"
 
 const Products = () => {
@@ -52,27 +52,16 @@ const Products = () => {
                                 { products.map((product) => { 
                                     return (
                                         <div className="col-lg-3">
-                                            <div className="card hover-border-0">
+                                            <div className="card hover-border-0 bg-light">
                                                 <img src={product.productImage} alt="wrapkit" className="img-fluid" />
                                             </div>
-                                            <div className="card border-0">
-                                                <NavLink
-                                                    to={{
-                                                        pathname:"/ProductPage",
-                                                        singleProduct: {
-                                                            productId: product.productId,
-                                                            productImage: product.productImage,
-                                                            productPrice: product.productPrice,
-                                                            productName: product.productName,
-                                                            productDescription: product.productDescription,
-                                                            detailedDescription: product.detailedDescription
-                                                        }
-                                                    }}
+                                            <div className="card border-0 bg-light">
+                                                <Link to={`ProductPage/${product.productId}`} 
                                                     style={{
                                                         color:"black",
                                                         fontWeight:"bold"
                                                     }}
-                                                    >{product.productName}</NavLink>
+                                                    >{product.productName}</Link>
                                                 <h6 classname="subtitle">{product.productDescription}</h6>
                                                 <h5 className="font-medium b-30">${product.productPrice}</h5>
                                                 <div>

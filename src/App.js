@@ -12,12 +12,12 @@ import ProductPage from "./components/ProductPage"
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App bg-light">
         <Navbar/>
         <Switch>
-          <Route exact path="/" component={Products} />
-          <Route exact path="/Cart" component={Cart} />
-          <Route exact path="/ProductPage" component={ProductPage} />
+          <Route exact path="/" component={Products}/>
+          <Route exact path="/Cart" component={Cart}/>
+          <Route exact path="/ProductPage/:productId" component={ProductPage}/>
         </Switch>
       </div>
     </Router> 

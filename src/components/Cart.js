@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Subtotal from "./totalComponents/Subtotal";
 
 const Cart = (props) => {
     const [cart, setCart] = useState([]);
-    const [priceSubtotal, setPriceSubtotal] = useState(0);
 
     async function getCart() {
       const response = await axios
@@ -61,17 +61,10 @@ const Cart = (props) => {
         .catch(error => console.log(error));
         getCart();
     }
-  
-    const getSubtotal = () => {
-      const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      const priceMap = cart.map(product =>  product.productPrice * product.productAmount);
-      return priceMap.reduce(reducer, 0);
-    }
 
     useEffect(() => {
       getCart();
-      setPriceSubtotal(getSubtotal());
-    }, [cart]);
+    }, []);
 
     return (
         <main>
@@ -127,9 +120,7 @@ const Cart = (props) => {
                         </tr>
                       ))}
                       <tr>
-                        <td colspan="3" align="right">
-                          Subtotal: ${priceSubtotal}
-                        </td>
+                        <Subtotal cart={cart}/>
                         <td colspan="4" align="right">
                           <button className="btn btn-danger" onClick={() => clearCart()}>
                             Empty cart

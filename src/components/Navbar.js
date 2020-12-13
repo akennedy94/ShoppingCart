@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import NavTotal from "./totalComponents/NavTotal";
 
 const Navbar = () => {
     const [cart, setCart] = useState([]);
-    const [cartTotal, setCartTotal] = useState(0);
 
     async function getCart() {
         const response = await axios
@@ -15,16 +15,9 @@ const Navbar = () => {
           .catch(error => console.log(error));
       }
 
-    const getCartTotal = () => {
-      const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      const priceMap = cart.map(product =>  product.productAmount);
-      return priceMap.reduce(reducer, 0)
-    }
-
     useEffect(() => {
         getCart();
-        setCartTotal(getCartTotal());
-    }, [cart]);
+    }, []);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-info">
@@ -35,10 +28,11 @@ const Navbar = () => {
                         <li className="nav-item active">
                             <Link to="/" className="nav-link">Home</Link> 
                         </li> 
-                        <li className="nav-item">
+                        <li className="nav-item active">
                             <Link to="/cart" className="nav-link">Cart
-                            <i class="fas fa-shopping-cart pl-2"/>
-                            <span class="badge badge-secondary ml-1">{cartTotal}</span></Link> 
+                                <i class="fas fa-shopping-cart pl-2"/>
+                                <NavTotal cart={cart} />
+                            </Link> 
                         </li> 
                     </ul> 
                 </div> 

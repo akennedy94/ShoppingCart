@@ -44,7 +44,7 @@ const products = [
         productId: "004",
         productName: "Morbi eu erat",
         productDescription: "Pellentesque non felis",
-        productPrice: 60,
+        productPrice: 75,
         productImage: "public/productimg/test.png",
         detailedDescription: `Sed posuere diam sed tincidunt vestibulum. 
                             Nam suscipit leo justo, ut malesuada erat blandit vel. Aliquam ac felis nulla.

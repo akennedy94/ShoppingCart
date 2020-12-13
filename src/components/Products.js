@@ -34,7 +34,7 @@ const Products = () => {
         <main>
             <section>
                 <div className="banner-innerpage">
-                    <div className="container">
+                    <div className="container-fluid">
                         <div className="row justify-content-center">
                             <div className="col-md-8 mt-3 align-self-center text-center">
                                 <h1 className="title">Etiam hendrerit tristique</h1>
@@ -46,35 +46,32 @@ const Products = () => {
             </section>
             <section>
                 <div className="container">
-                    <div className="row mt-3">
-                        <div className="col-lg-12">
-                            <div className="row">
-                                { products.map((product) => { 
-                                    return (
-                                        <div className="col-lg-3">
-                                            <div className="card hover-border-0 bg-light">
-                                                <img src={product.productImage} alt="wrapkit" className="img-fluid" />
-                                            </div>
-                                            <div className="card border-0 bg-light">
-                                                <Link to={`ProductPage/${product.productId}`} 
-                                                    style={{
-                                                        color:"black",
-                                                        fontWeight:"bold"
-                                                    }}
-                                                    >{product.productName}</Link>
-                                                <h6 classname="subtitle">{product.productDescription}</h6>
-                                                <h5 className="font-medium b-30">${product.productPrice}</h5>
-                                                <div>
-                                                    <button onClick={() => addProductToCart(product.productId, 1, product.productPrice, product.productName)} 
-                                                        className="btn btn-md btn-info ml-1 mb-3">
-                                                            Add to Cart
-                                                    </button>
-                                                </div>
+                    <div className="row">
+                        { products.map((product) => { 
+                            return (
+                                <div className="col-3">
+                                    <div className="card border-light">
+                                        <div className="bg-light">
+                                            <img src={product.productImage} alt="wrapkit" className="card-img-top" />
+                                        </div>
+                                        <div className="card-body bg-light">
+                                            <Link to={`ProductPage/${product.productId}`} 
+                                                style={{
+                                                    color:"black",
+                                                    fontWeight:"bold"
+                                                }}
+                                                >{product.productName}</Link>
+                                            <h5 className="font-medium b-30">${product.productPrice}</h5>
+                                            <div>
+                                                <button onClick={() => addProductToCart(product.productId, 1, product.productPrice, product.productName)} 
+                                                    className="btn btn-md btn-info">
+                                                        Add to Cart
+                                                </button>
                                             </div>
                                         </div>
-                                    )})}
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
+                            )})}
                     </div>
                 </div>
             </section>

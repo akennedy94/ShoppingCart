@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const ProductPage = (props) => {
     const [quantity, setQuantity] = useState(1);
@@ -14,7 +14,10 @@ const ProductPage = (props) => {
                 increase: true,
                 quantityToChange: quantity
                 })
-                .then(response => console.log(response))
+                .then(response => {
+                    console.log(response);
+                    getCart();
+                })
                 .catch(error => console.log(error));
         } else {
             const response = await axios
@@ -24,19 +27,12 @@ const ProductPage = (props) => {
                     productAmount: addProductAmount,
                     productPrice: addProductPrice,
                 })
-                .then(response => console.log(response))
+                .then(response => {
+                    console.log(response);
+                    getCart();
+                })
                 .catch(error => console.log(error));
         }
-    }
-
-    async function getProduct() {
-        const endPoint = props.match.params.productId;
-        const response = await axios
-            .get(`/api/product/${endPoint}`)
-            .then(response => {
-                setProduct(response.data);
-            })
-            .catch(error => console.log(error));
     }
 
     async function getCart() {
@@ -58,9 +54,19 @@ const ProductPage = (props) => {
     }
 
     useEffect(() => {
-        getCart();
+        async function getProduct() {
+            const endPoint = props.match.params.productId;
+            const response = await axios
+                .get(`/api/product/${endPoint}`)
+                .then(response => {
+                    setProduct(response.data);
+                })
+                .catch(error => console.log(error));
+        }
+        
         getProduct();
-    }, [cart]);
+        getCart();
+    }, []);
 
     return (
         <main>

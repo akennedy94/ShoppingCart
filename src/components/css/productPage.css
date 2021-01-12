@@ -1,0 +1,14 @@
+body {
+    background-color: #F5F5F5;
+    height: 100%;
+}
+
+main {
+    background-color: #F5F5F5;
+}
+
+#productDisplay {
+    min-width: 240px;
+    margin: 1vh auto 0;
+    justify-content: center;
+}

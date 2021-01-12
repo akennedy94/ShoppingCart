@@ -1,0 +1,14 @@
+@media only screen and (max-width: 720px) {
+    .nav-link {
+        display: flex;
+        justify-content: center;
+    }
+    .navbar-brand {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+    .navbar {
+        max-width: 100%;
+    }
+}

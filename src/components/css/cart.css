@@ -1,0 +1,57 @@
+.cart {
+    display: inline-block;
+    width: 100%;
+    margin-left: 1.5vh;
+}
+
+
+.productColumn {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.productDisplay {
+    display: flex;
+    padding-top: 3.5vh;
+    align-items: center;
+    width: 100%
+}
+
+.productImgDisplay {
+    width: 33%;
+}
+
+.productInfo {
+    height: 100%;
+    width: 100%;
+    margin-left: 50px;
+    margin-bottom: 50px;
+}
+
+.productNameDisplay {
+    display: flex;
+    align-content: flex-start;
+}
+
+.priceDisplay{
+    display: flex;
+    width: 75%;
+    justify-content: flex-end;
+}
+
+.controls {
+    display: flex;
+    margin-top: 25px;
+    align-items: center;
+}
+
+.buttonContainer {
+    margin-right: 20px;
+}
+
+.subtotal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

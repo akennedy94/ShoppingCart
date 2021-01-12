@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from "react";
 
-const NavTotal = ({cart}) => {
+const NavTotal = ({ localCart }) => {
     const [cartTotal, setCartTotal] = useState(0);
 
     const getCartTotal = () => {
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
-        const priceMap = cart.map(product =>  product.productAmount);
+        const priceMap = localCart.map(product =>  product.productAmount);
         setCartTotal(priceMap.reduce(reducer, 0));
       }
 
     useEffect(() => {
         getCartTotal();
-    }, [cart])
+    }, [localCart])
 
     return (
-        <span class="badge badge-secondary ml-1">{cartTotal}</span>
+        <span className="badge badge-secondary ml-1">{cartTotal}</span>
     )   
 }
 

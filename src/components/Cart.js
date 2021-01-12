@@ -1,140 +1,130 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import Subtotal from "./totalComponents/Subtotal";
+import Subtotal from "./subtotalComponents/Subtotal";
+import "./css/cart.css"
+const Cart = ({ localCart, setLocalCart }) => {
 
-const Cart = (props) => {
-    const [cart, setCart] = useState([]);
-
-    async function getCart() {
-      const response = await axios
-        .get("/api/cart")
-        .then(response => {
-          setCart(response.data);
-        })
-        .catch(error => console.log(error));
+  const increaseItemQuantity = (id) => {     
+    const updateProduct = {
+      productId: id,
+      quantityToChange: 1
     }
 
-    async function increaseItemQuantity(id) {
-      const response = await axios
-        .patch("/api/cart", {
-          productId: id,
-          increase: true,
-          quantityToChange: 1
-        })
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
-        getCart();
+    const index = localCart.findIndex(item => item.productId === updateProduct.productId);
+    const updateLocal = [...localCart];
+
+    updateLocal[index].productAmount = localCart[index].productAmount + updateProduct.quantityToChange;
+    setLocalCart(updateLocal);
+  }
+
+  const decreaseItemQuantity = (id) => {      
+    const updateProduct = {
+      productId: id,
+      increase: false,
+      quantityToChange: 1
     }
 
-    async function decreaseItemQuantity(id) {
-      const response = await axios
-        .patch("/api/cart", {
-          productId: id,
-          increase: false,
-          quantityToChange: 1
-        })
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
-        getCart();
+    const index = localCart.findIndex(item => item.productId === id);
+    const updateLocal = [...localCart];
+
+    if (localCart[index].productAmount - 1 > 0) {
+      updateLocal[index].productAmount = localCart[index].productAmount - updateProduct.quantityToChange;
+      setLocalCart(updateLocal);
     }
+  }
 
-    async function clearCart() {
-      const response = await axios
-        .delete("/api/cart", { 
-          data: {
-          emptyCart: true
-        }})
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
-        getCart();
-    }
+  const clearCart = () => {
+    const emptyCart = [];
+    setLocalCart(emptyCart);
+  }
 
-    async function removeItemFromCart(id) {
-      const response = await axios
-        .delete("/api/cart", { 
-          data: {
-          emptyCart: false,
-          productId: id
-        }})
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
-        getCart();
-    }
 
-    useEffect(() => {
-      getCart();
-    }, []);
+  const removeItemFromCart = (id) => {
+    const index = localCart.findIndex(item => item.productId === id);
+    const updateLocal = [...localCart];
+    updateLocal.splice(index, 1);
+    setLocalCart(updateLocal);
+  }
 
-    return (
-        <main>
-          <section>
-            <div className="banner-innerpage">
-              <div className="container">
-                <div className="row mt-3 justify-content-center">
-                  <div className="col-md-6 align-self-center text-center">
-                    <h1 className="title">Vivamus ullamcorper lectus</h1>
-                    <h6 className="subtitle op-8">Suspendisse viverra mi nec</h6>
-                  </div>
+  useEffect(() => {console.log(localCart)}, [localCart]);
+
+  return (
+      <main>
+        <section>
+          <div className="banner-innerpage">
+            <div className="container">
+              <div className="row mt-3 justify-content-center">
+                <div className="col-md-6 align-self-center text-center">
+                  <h1 className="title">Vivamus ullamcorper lectus</h1>
+                  <h5 className="subtitle op-8">Suspendisse viverra mi nec</h5>
                 </div>
               </div>
             </div>
-          </section>
-          <section>
-            <div className="container">
-              <div className="row mt-5">
-                <div className="col-lg-10">
-                  <div className="row shop-listing">
-                    <table className="table shop-table">
-                      <tr>
-                        <th className="b-0">Name</th>
-                        <th className="b-0">Price</th>
-                        <th className="b-0">Quantity</th>
-                        <th className="spacer"></th>
-                        <th className="b-0 text-right">Total Price</th>
-                      </tr>
-                      { cart.map(product => (
-                        <tr>
-                          <td>
+          </div>
+        </section>
+        <section>
+          <div className="container">
+            <div className="row mt-5">
+              <div className="col-lg-8">
+                <div className="row shop-listing">
+                  <div className="cart">
+                    <div className="cartHeader">
+                      <h3>Shopping Cart</h3>
+                    </div>
+                  <div className="productColumn">
+                    {localCart.map(product => (
+                      <div className="productDisplay">
+                        <div className="productImgDisplay">
+                          <img src={`../${product.productImage}`} alt="pic of product"
+                          width="200" height="200"></img> 
+                        </div>
+                        <div className="productInfo">
+                          <div className="productNameDisplay">
                             <Link to={`ProductPage/${product.productId}`}
                                   style={{
                                       color:"black",
                                       fontWeight:"bold"
                                   }}>{product.productName}</Link>
-                          </td>
-                          <td>${product.productPrice}</td>
-                          <td>
-                          <button onClick={() => decreaseItemQuantity(product.productId)}
-                              className="btn btn-primary btn-sm">-</button>
-                            {product.productAmount}
-                            <button onClick={() => increaseItemQuantity(product.productId)}
-                              className="btn btn-primary btn-sm">+</button>
-                          </td>
-                          <td>
-                            <button onClick={() => removeItemFromCart(product.productId)}
-                            className="btn btn-danger">Remove from cart?</button>
-                          </td>
-                          <td className="text-right">
-                            <h5 className="font-medium m-b-30">${product.productPrice * product.productAmount}</h5>
-                          </td>
-                        </tr>
+                            <div className="priceDisplay">
+                              <h5 className="font-medium m-b-30">${product.productPrice}</h5>
+                            </div>
+                          </div>
+                          <div className="controls">
+                            <div className="buttonContainer">
+                              <button onClick={() => decreaseItemQuantity(product.productId)}
+                                className="btn btn-primary btn-sm">-</button>
+                              {product.productAmount}
+                              <button onClick={() => increaseItemQuantity(product.productId)}
+                                className="btn btn-primary btn-sm">+</button>
+                            </div>
+                            <div>
+                              <button onClick={() => removeItemFromCart(product.productId)}
+                              className="btn btn-danger">Remove from cart?</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       ))}
-                      <tr>
-                        <Subtotal cart={cart}/>
-                        <td colspan="4" align="right">
-                          <button className="btn btn-danger" onClick={() => clearCart()}>
-                            Empty cart
-                          </button>
-                        </td>
-                      </tr>
-                    </table>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="col-lg-4 mt-1">
+                <div className="subtotal">
+                      <Subtotal localCart={localCart}/>
+                      <button className="btn btn-info mt-2" >
+                        Save Cart
+                      </button>
+                      <button className="btn btn-danger mt-2" onClick={() => clearCart()}>
+                        Empty Cart
+                      </button>
+                </div>
+              </div>
             </div>
-          </section>
-        </main>
-      );
+          </div>
+        </section>
+      </main>
+    );
 }
 
 export default Cart;

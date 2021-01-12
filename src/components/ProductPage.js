@@ -1,47 +1,35 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-const ProductPage = (props) => {
+import "./css/productPage.css"
+const ProductPage = ({ localCart, setLocalCart, match }) => {
     const [quantity, setQuantity] = useState(1);
-    const [cart, setCart] = useState([]);
     const [product, setProduct] = useState({});
 
-    async function addProductToCart(addProductId, addProductAmount, addProductPrice, addProductName) {
-        if (cart.map(product => product.productId).includes(addProductId)) {
-            const response = await axios
-                .patch("/api/cart", {
+    const addProductToCart = async function (addProductId, addProductAmount, addProductPrice, addProductName, addProductImage) {
+        if (localCart.map(product => product.productId).includes(addProductId)) {
+            const updateProduct = {
                 productId: addProductId,
-                increase: true,
-                quantityToChange: quantity
-                })
-                .then(response => {
-                    console.log(response);
-                    getCart();
-                })
-                .catch(error => console.log(error));
+                quantityToChange: addProductAmount
+            }
+      
+            const index = localCart.findIndex(item => item.productId === updateProduct.productId);
+            const updateLocal = [...localCart];
+      
+            updateLocal[index].productAmount = localCart[index].productAmount + updateProduct.quantityToChange;
+            setLocalCart(updateLocal);
         } else {
-            const response = await axios
-                .post("/api/cart", {
-                    productId: addProductId,
-                    productName: addProductName,
-                    productAmount: addProductAmount,
-                    productPrice: addProductPrice,
-                })
-                .then(response => {
-                    console.log(response);
-                    getCart();
-                })
-                .catch(error => console.log(error));
-        }
-    }
+            const productAdd = {
+                productId: addProductId,
+                productName: addProductName,
+                productAmount: addProductAmount,
+                productPrice: addProductPrice,
+                productImage: addProductImage,
+            }
 
-    async function getCart() {
-        const response = await axios
-          .get("/api/cart")
-          .then(response => {
-            setCart(response.data);
-          })
-          .catch(error => console.log(error));
+            const updateLocal = [...localCart];
+            updateLocal.push(productAdd);
+            setLocalCart(updateLocal);
+        }
     }
 
     const increaseItemQuantity = () => {
@@ -53,19 +41,18 @@ const ProductPage = (props) => {
         setQuantity(quantity - 1);
     }
 
+    const getProduct = async function () {
+        const endPoint = match.match.params.productId;
+        const response = await axios
+            .get(`/api/product/${endPoint}`)
+            .then(response => {
+                setProduct(response.data[0]);
+            })
+            .catch(error => console.log(error));
+    }
+
     useEffect(() => {
-        async function getProduct() {
-            const endPoint = props.match.params.productId;
-            const response = await axios
-                .get(`/api/product/${endPoint}`)
-                .then(response => {
-                    setProduct(response.data);
-                })
-                .catch(error => console.log(error));
-        }
-        
         getProduct();
-        getCart();
     }, []);
 
     return (
@@ -88,8 +75,10 @@ const ProductPage = (props) => {
                                 {quantity}
                                 <button onClick={increaseItemQuantity}
                                 className="btn btn-primary btn-sm">+</button>
-                                <button onClick={() => addProductToCart(product.productId, quantity, 
-                                product.productPrice, product.productName)}
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    addProductToCart(product.productId, quantity, product.productPrice, product.productName, product.productImage)
+                                }}
                                 className="btn btn-primary ml-3">Add to cart</button>
                             </div>
                         </div>

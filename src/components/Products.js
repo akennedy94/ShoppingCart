@@ -1,34 +1,28 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"  
-import axios from "axios"
+import React from "react"
+import { Link } from "react-router-dom"
 
-const Products = () => {
-    const [products, setProducts] = useState([]);
+const Products = ({ products, localCart, setLocalCart }) => {
 
-    async function getProduct() {
-        const product = await axios
-            .get("/api/product")
-            .then(response => {
-                setProducts(response.data);
-            })
-            .catch(error => console.log(error));
-    };
+    const addProductToCart = async function (addProductId, addProductAmount, addProductPrice, addProductName, addProductImage) {
+        const productAdd = {
+            productId: addProductId,
+            productName: addProductName,
+            productAmount: addProductAmount,
+            productPrice: addProductPrice,
+            productImage: addProductImage
+        }
+        
+        const localUpdate = [...localCart];
 
-    async function addProductToCart(addProductId, addProductAmount, addProductPrice, addProductName) {
-        const response = await axios
-            .post("/api/cart", {
-                productId: addProductId,
-                productName: addProductName,
-                productAmount: addProductAmount,
-                productPrice: addProductPrice,
-            })
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+        if (localCart.map(product => product.productId).includes(productAdd.productId)) {
+            const index = localCart.findIndex(item => item.productId === productAdd.productId);
+            localUpdate[index].productAmount = localCart[index].productAmount + 1;    
+        } else {
+            localUpdate.push(productAdd);
+        }
+
+        setLocalCart(localUpdate);
     }
-
-    useEffect(() => {
-        getProduct();
-    }, []);
 
     return (
         <main>
@@ -38,7 +32,7 @@ const Products = () => {
                         <div className="row justify-content-center">
                             <div className="col-md-8 mt-3 align-self-center text-center">
                                 <h1 className="title">Etiam hendrerit tristique</h1>
-                                <h5 classname="subtitle op-8">Donec nec lobortis purus</h5>
+                                <h5 className="subtitle op-8">Donec nec lobortis purus</h5>
                             </div>
                         </div>
                     </div>
@@ -49,8 +43,8 @@ const Products = () => {
                     <div className="row">
                         { products.map((product) => { 
                             return (
-                                <div className="col-3">
-                                    <div className="card border-light">
+                                <div key={product.productId} className="col-3" id="productDisplay">
+                                    <div className="card border-light text-center">
                                         <div className="bg-light">
                                             <img src={product.productImage} alt="wrapkit" className="card-img-top" />
                                         </div>
@@ -60,10 +54,11 @@ const Products = () => {
                                                     color:"black",
                                                     fontWeight:"bold"
                                                 }}
-                                                >{product.productName}</Link>
+                                                >{product.productName}
+                                            </Link>
                                             <h5 className="font-medium b-30">${product.productPrice}</h5>
                                             <div>
-                                                <button onClick={() => addProductToCart(product.productId, 1, product.productPrice, product.productName)} 
+                                                <button onClick={() => addProductToCart(product.productId, 1, product.productPrice, product.productName, product.productImage)} 
                                                     className="btn btn-md btn-info">
                                                         Add to Cart
                                                 </button>

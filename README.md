@@ -4,10 +4,13 @@ This is a basic shopping cart app built to demonstrate basic communication betwe
 # Installation
 
 In root:
+-----------
+
 npm install
 
 npm start
 
+----------
 Server will start on localhost:3001
 
 Alternatively, the app is hosted on Heroku at https://shopping-cart-ex.herokuapp.com/

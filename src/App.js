@@ -7,36 +7,66 @@ import Navbar from "./components/Navbar";
 import Products from "./components/Products";
 import Cart from "./components/Cart";
 import ProductPage from "./components/ProductPage";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ContextProvider } from './Context';
+
+toast.configure();
+
+// MUST do this otherwise will attempt to map an array that doesn't exist
+if (window.sessionStorage.getItem('cart') === null) {
+  window.sessionStorage.setItem('cart', JSON.stringify([]));
+}
+
+if (window.localStorage.getItem('wishlist') === null) {
+  window.localStorage.setItem('wishlist', JSON.stringify([]));
+}
+
+const sessionCart = window.sessionStorage.getItem('cart');
+const localWishlist = window.localStorage.getItem('wishlist');
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [localCart, setLocalCart] = useState([]);
+  // init cart state from sessionStorage
+  const [localCart, setLocalCart] = useState(JSON.parse(sessionCart));
+  // init wishlist state from localStorage
+  const [wishlist, setWishlist] = useState(JSON.parse(localWishlist));
 
   async function getProduct() {
     const product = await axios
         .get("/api/product")
         .then(response => {
-          console.log(response)
-            setProducts(response.data);
+          setProducts(response.data);
         })
         .catch(error => console.log(error));
-      };
+  };
 
+  // load product list
+  useEffect(() => { getProduct() }, []);
+
+  // store cart in sessionStorage to preserve on window refresh
   useEffect(() => {
-      getProduct();
-  }, []);
+    window.sessionStorage.setItem('cart', JSON.stringify(localCart));
+  }, [localCart]);
+
+  // save wishlist to localStorage
+  useEffect(() => {
+    window.localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
 
   return (
     <main className="App bg-light">
       <Router>
           <Navbar localCart={localCart}/>
-          <Switch>
-            <Route exact path="/" component={() => <Products products={products} localCart={localCart} setLocalCart={setLocalCart} />}/>
-            <Route exact path="/Cart" component={() => <Cart localCart={localCart} setLocalCart={setLocalCart} />}/>
-            <Route exact path="/ProductPage/:productId" component={(match) => <ProductPage localCart={localCart} setLocalCart={setLocalCart} match={match}/>}/>
-          </Switch>
+          <ContextProvider value={{localCart, setLocalCart, wishlist, setWishlist}}>
+            <Switch>
+              <Route exact path="/" component={() => <Products products={products} />}/>
+              <Route exact path="/Cart" component={() => <Cart />}/>
+              <Route exact path="/ProductPage/:productId" component={(match) => <ProductPage match={match} />}/>
+            </Switch>
+          </ContextProvider>
       </Router> 
     </main>
   );

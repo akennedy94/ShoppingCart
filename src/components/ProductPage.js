@@ -1,35 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./css/productPage.css"
-const ProductPage = ({ localCart, setLocalCart, match }) => {
+import { toastAdd, toastUpdate } from './utilityFunctions/toasts'
+import Context from '../Context';
+
+const ProductPage = ({ match }) => {
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState({});
+    const context = useContext(Context);
+    const [localCart, setLocalCart, wishlist, setWishlist] = [context.localCart, context.setLocalCart, context.wishlist, context.setWishlist];
+    const endPoint = match.match.params.productId;
 
-    const addProductToCart = async function (addProductId, addProductAmount, addProductPrice, addProductName, addProductImage) {
-        if (localCart.map(product => product.productId).includes(addProductId)) {
-            const updateProduct = {
-                productId: addProductId,
-                quantityToChange: addProductAmount
-            }
-      
-            const index = localCart.findIndex(item => item.productId === updateProduct.productId);
+    useEffect(() => { 
+        const product = axios
+            .get(`/api/product/${endPoint}`)
+            .then(response => {
+                setProduct(response.data[0]);
+            }).catch(error => console.log(error));
+    }, [endPoint]);
+
+    const addProductToCart = (addProduct) => {
+        if (localCart.map(product => product.productId).includes(addProduct.productId)) {
+            const index = localCart.findIndex(item => item.productId === addProduct.productId);
             const updateLocal = [...localCart];
-      
-            updateLocal[index].productAmount = localCart[index].productAmount + updateProduct.quantityToChange;
+
+            updateLocal[index].productAmount = localCart[index].productAmount + quantity;
             setLocalCart(updateLocal);
+            toastUpdate("Cart updated!");
         } else {
-            const productAdd = {
-                productId: addProductId,
-                productName: addProductName,
-                productAmount: addProductAmount,
-                productPrice: addProductPrice,
-                productImage: addProductImage,
-            }
-
+            addProduct.productAmount = quantity;
             const updateLocal = [...localCart];
-            updateLocal.push(productAdd);
+
+            updateLocal.push(addProduct);
+
             setLocalCart(updateLocal);
+            toastAdd("Added to cart!");
         }
+    }
+
+    const addProductToWishlist = (product) => {
+        const wishlistUpdate = [...wishlist];
+        
+        if (wishlist.map(product => product.productId).includes(product.productId)) {
+            toastAdd("Added to wishlist!");
+        } else {
+            product.productAmount = 1;
+            wishlistUpdate.push(product);
+            toastAdd("Added to wishlist!");
+        }
+        
+        setWishlist(wishlistUpdate);
     }
 
     const increaseItemQuantity = () => {
@@ -41,19 +61,9 @@ const ProductPage = ({ localCart, setLocalCart, match }) => {
         setQuantity(quantity - 1);
     }
 
-    const getProduct = async function () {
-        const endPoint = match.match.params.productId;
-        const response = await axios
-            .get(`/api/product/${endPoint}`)
-            .then(response => {
-                setProduct(response.data[0]);
-            })
-            .catch(error => console.log(error));
+    const handleClick = (product) => {
+        addProductToCart(product);
     }
-
-    useEffect(() => {
-        getProduct();
-    }, []);
 
     return (
         <main>
@@ -71,15 +81,26 @@ const ProductPage = ({ localCart, setLocalCart, match }) => {
                             <p>{product.detailedDescription}</p>
                             <div className="flex-row justify-content-center">
                                 <button onClick={decreaseItemQuantity}
-                                className="btn btn-primary btn-sm">-</button>
+                                    className="btn btn-primary btn-sm">
+                                    -
+                                </button>
                                 {quantity}
                                 <button onClick={increaseItemQuantity}
-                                className="btn btn-primary btn-sm">+</button>
+                                    className="btn btn-primary btn-sm">
+                                    +
+                                </button>
+                                <button onClick={(e) => { 
+                                        e.preventDefault();
+                                        handleClick(product);}} 
+                                        className="btn btn-primary ml-3">
+                                    Add to cart
+                                </button>
                                 <button onClick={(e) => {
                                     e.preventDefault();
-                                    addProductToCart(product.productId, quantity, product.productPrice, product.productName, product.productImage)
-                                }}
-                                className="btn btn-primary ml-3">Add to cart</button>
+                                    addProductToWishlist(product);}}
+                                    className="btn btn-info btn-md ml-3">
+                                    Add to wishlist
+                                </button>
                             </div>
                         </div>
                     </div>

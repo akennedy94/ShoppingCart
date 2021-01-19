@@ -28,12 +28,12 @@ app.get("/api/product/:id", async (req, res) => {
     } else {
         res.status(404);
     }
-  })
+})
   
 // catch all 
-app.get('*', (req,res) =>{
+app.get('*', (req, res) =>{
     res.sendFile(path.join(__dirname, '../build/index.html'));
-  });
+});
   
 app.listen(PORT, () => {
     console.log((path.join(__dirname, '../build')))

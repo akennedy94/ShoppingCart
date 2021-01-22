@@ -15,7 +15,8 @@ import { ContextProvider } from './Context';
 
 toast.configure();
 
-// MUST do this otherwise will attempt to map an array that doesn't exist
+// set sessionStorage && localStorage to empty array if dosn't exist
+// MUST do this to prevent attempted mapping of undefined
 if (window.sessionStorage.getItem('cart') === null) {
   window.sessionStorage.setItem('cart', JSON.stringify([]));
 }

@@ -7,7 +7,7 @@ const NavTotal = ({ localCart }) => {
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         const priceMap = localCart.map(product =>  product.productAmount);
         setCartTotal(priceMap.reduce(reducer, 0));
-      }
+    }
 
     useEffect(() => {getCartTotal()}, [localCart])
     

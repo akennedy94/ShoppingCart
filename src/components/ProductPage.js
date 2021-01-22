@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./css/productPage.css"
-import { toastAdd, toastUpdate } from './utilityFunctions/toasts'
+import { toastAdd } from './helperFunctions/toasts'
 import Context from '../Context';
+import { addProductToWishlist, addProductToCart } from './helperFunctions/adders';
 
 const ProductPage = ({ match }) => {
     const [quantity, setQuantity] = useState(1);
@@ -19,39 +20,6 @@ const ProductPage = ({ match }) => {
             }).catch(error => console.log(error));
     }, [endPoint]);
 
-    const addProductToCart = (addProduct) => {
-        if (localCart.map(product => product.productId).includes(addProduct.productId)) {
-            const index = localCart.findIndex(item => item.productId === addProduct.productId);
-            const updateLocal = [...localCart];
-
-            updateLocal[index].productAmount = localCart[index].productAmount + quantity;
-            setLocalCart(updateLocal);
-            toastUpdate("Cart updated!");
-        } else {
-            addProduct.productAmount = quantity;
-            const updateLocal = [...localCart];
-
-            updateLocal.push(addProduct);
-
-            setLocalCart(updateLocal);
-            toastAdd("Added to cart!");
-        }
-    }
-
-    const addProductToWishlist = (product) => {
-        const wishlistUpdate = [...wishlist];
-        
-        if (wishlist.map(product => product.productId).includes(product.productId)) {
-            toastAdd("Added to wishlist!");
-        } else {
-            product.productAmount = 1;
-            wishlistUpdate.push(product);
-            toastAdd("Added to wishlist!");
-        }
-        
-        setWishlist(wishlistUpdate);
-    }
-
     const increaseItemQuantity = () => {
         setQuantity(quantity + 1);
     }
@@ -61,8 +29,14 @@ const ProductPage = ({ match }) => {
         setQuantity(quantity - 1);
     }
 
-    const handleClick = (product) => {
-        addProductToCart(product);
+    const handleWishlistAdd = (product) => {
+        setWishlist(addProductToWishlist(product, wishlist));
+        toastAdd("Added to wishlist!");
+    }
+
+    const handleCartAdd = (product) => {
+        setLocalCart(addProductToCart(product, localCart, quantity));
+        toastAdd("Added to cart!");
     }
 
     return (
@@ -91,13 +65,13 @@ const ProductPage = ({ match }) => {
                                 </button>
                                 <button onClick={(e) => { 
                                         e.preventDefault();
-                                        handleClick(product);}} 
+                                        handleCartAdd(product);}} 
                                         className="btn btn-primary ml-3">
                                     Add to cart
                                 </button>
                                 <button onClick={(e) => {
                                     e.preventDefault();
-                                    addProductToWishlist(product);}}
+                                    handleWishlistAdd(product);}}
                                     className="btn btn-info btn-md ml-3">
                                     Add to wishlist
                                 </button>

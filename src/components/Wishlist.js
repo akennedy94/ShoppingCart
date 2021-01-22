@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { toastRemove, toastAdd } from './utilityFunctions/toasts'; 
+import { toastRemove, toastAdd } from './helperFunctions/toasts'; 
 import { Link } from "react-router-dom";
 import Context from '../Context';
 
@@ -51,7 +51,13 @@ const Wishlist = () => {
                       <h3>Wishlist</h3>
                     </div>
                     <div className="productColumn">
-                      <WishlistCol removeItemFromWishlist={removeItemFromWishlist} transferItem={transferItem}/>
+                      {
+                      wishlist.length === 0  ? 
+                        <div className="emptyDisplay">
+                          <h4>Your wishlist is empty!</h4> 
+                        </div>
+                        : <WishlistCol removeItemFromWishlist={removeItemFromWishlist} transferItem={transferItem}/>
+                      }
                     </div>
                   </div>
                 </div>

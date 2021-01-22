@@ -64,3 +64,10 @@
     flex-direction: column;
     width: 100%;
 }
+
+.emptyDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}

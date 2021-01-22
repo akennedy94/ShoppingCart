@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import CheckoutSummary from "./subtotalComponents/CheckoutSummary";
 import Wishlist from './Wishlist';
 import "./css/cart.css"
-import { toastAdd, toastClear, toastRemove } from './utilityFunctions/toasts'; 
+import { toastAdd, toastClear, toastRemove } from './helperFunctions/toasts'; 
 import Context from '../Context';
+import {addProductToWishlist} from './helperFunctions/adders';
 
 const Cart = () => {
   const [itemQuantity, setItemQuantity] = useState(0);
@@ -25,17 +26,10 @@ const Cart = () => {
     toastClear("Cart cleared!");
   }
   
-  const addProductToWishlist = (product) => {
-    const wishlistUpdate = [...wishlist];
-    
-    if (wishlist.map(product => product.productId).includes(product.productId)) {
-      console.log("Already has")
-    } else {
-      wishlistUpdate.push(product);
-    }
-    setWishlist(wishlistUpdate);
+  const handleAdd = (product) => {
+    setWishlist(addProductToWishlist(product, wishlist));
   }
-
+  
   useEffect(() => {getQuantity()}, [localCart]);
 
   return (
@@ -62,7 +56,13 @@ const Cart = () => {
                     <h3>Shopping Cart</h3>
                   </div>
                   <div className="productColumn">
-                    <ProductCol addProductToWishlist={addProductToWishlist}/>
+                    {
+                    localCart.length === 0  ? 
+                      <div className="emptyDisplay">
+                        <h4>Your cart is empty!</h4> 
+                      </div> 
+                    : <ProductCol handleAdd={handleAdd}/>
+                    }
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@ const Cart = () => {
   );
 }
 
-const ProductCol = ({ addProductToWishlist }) => {
+const ProductCol = ({ handleAdd }) => {
   const context = useContext(Context);
   const [localCart, setLocalCart] = [context.localCart, context.setLocalCart];
 
@@ -123,7 +123,7 @@ const ProductCol = ({ addProductToWishlist }) => {
 
   const saveForLater = (product) => {
     removeItemFromCart(product.productId, true);
-    addProductToWishlist(product);
+    handleAdd(product);
   }
 
   return (
@@ -136,10 +136,12 @@ const ProductCol = ({ addProductToWishlist }) => {
         <div className="productInfo">
           <div className="productNameDisplay">
             <Link to={`ProductPage/${product.productId}`}
-                  style={{
-                      color:"black",
-                      fontWeight:"bold"
-                  }}>{product.productName}</Link>
+              style={{
+                  color:"black",
+                  fontWeight:"bold"
+              }}>
+              {product.productName}
+            </Link>
             <div className="priceDisplay">
               <h5 className="font-medium m-b-30">${product.productPrice}</h5>
             </div>

@@ -3,7 +3,7 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const path = require("path");
-const database = require('./serverDatabase.js')
+const database = require('./serverDatabase.js');
 
 app.use(cors())
     .use(express.json())

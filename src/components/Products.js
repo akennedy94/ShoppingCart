@@ -1,48 +1,21 @@
 import React, { useContext } from "react"
 import { Link } from "react-router-dom"
-import { toastAdd } from "./utilityFunctions/toasts"
+import { toastAdd } from "./helperFunctions/toasts"
 import Context from '../Context';
+import { addProductToWishlist, addProductToCart } from './helperFunctions/adders';
 
 const Products = ({ products }) => {
     const context = useContext(Context);
     const [localCart, setLocalCart, wishlist, setWishlist] = [context.localCart, context.setLocalCart, context.wishlist, context.setWishlist];
-  
-     const addProductToCart = (addProduct) => {
-        const localUpdate = [...localCart];
-
-        if (localCart.map(product => product.productId).includes(addProduct.productId)) {
-            const index = localCart.findIndex(item => item.productId === addProduct.productId);
-
-            localUpdate[index].productAmount = localCart[index].productAmount + 1;    
-        } else {
-            addProduct.productAmount = 1;
-            localUpdate.push(addProduct);
-        }
-
-        setLocalCart(localUpdate);
-    }
-    
-    const addProductToWishlist = (product) => {
-        const wishlistUpdate = [...wishlist];
-        
-        if (wishlist.map(product => product.productId).includes(product.productId)) {
-            toastAdd("Added to wishlist!");
-        } else {
-            product.productAmount = 1;
-            wishlistUpdate.push(product);
-            toastAdd("Added to wishlist!");
-        }
-        
-        setWishlist(wishlistUpdate);
-    }
 
     const handleAddClick = (product) => {
-        addProductToCart(product);
+        setLocalCart(addProductToCart(product, localCart));
         toastAdd("Added to cart!");
     }
 
     const handleWishlist = (product) => {
-        addProductToWishlist(product);
+        setWishlist(addProductToWishlist(product, wishlist));
+        toastAdd("Added to wishlist!");
     }
 
     return (

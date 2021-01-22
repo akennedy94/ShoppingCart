@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-
 const CheckoutSummary = ({ localCart, itemQuantity }) => {
     const [subtotal, setSubtotal] = useState(0);
     const [shipping, setShipping] = useState(0);
@@ -27,7 +26,7 @@ const CheckoutSummary = ({ localCart, itemQuantity }) => {
         <div className="container">
             <div className="row">
                 <div className="col-9 d-flex justify-content-start align-items-center">
-                    <h4>Subtotal <ItemGrammer itemQuantity={itemQuantity} />:</h4>
+                    <h4>Subtotal {itemQuantity === 1 ? `(${itemQuantity} item)` : `(${itemQuantity} items)`}:</h4>
                 </div>
                 <div className="col-3 d-flex justify-content-end align-items-center">
                     <div>
@@ -77,12 +76,6 @@ const CheckoutSummary = ({ localCart, itemQuantity }) => {
             </div>
         </div>
     )
-}
-
-const ItemGrammer = ({ itemQuantity }) => {
-    if(itemQuantity === 1) {
-        return `(${itemQuantity} item)`
-    } else return `(${itemQuantity} items)`
 }
 
 export default CheckoutSummary;

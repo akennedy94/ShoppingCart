@@ -22,7 +22,7 @@ export const addProductToCart = (product, localCart, quantity) => {
 
         localUpdate[index].productAmount = localCart[index].productAmount + quantity;    
     } else {
-        product.productAmount = 1;
+        product.productAmount = quantity;
         localUpdate.push(product);
     }
     return localUpdate;

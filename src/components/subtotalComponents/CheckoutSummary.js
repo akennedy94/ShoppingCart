@@ -26,7 +26,7 @@ const CheckoutSummary = ({ localCart, itemQuantity }) => {
         <div className="container">
             <div className="row">
                 <div className="col-9 d-flex justify-content-start align-items-center">
-                    <h4>Subtotal {itemQuantity === 1 ? `(${itemQuantity} item)` : `(${itemQuantity} items)`}:</h4>
+                    <h4 className="quantity-responsive">Subtotal {itemQuantity === 1 ? `(${itemQuantity} item)` : `(${itemQuantity} items)`}:</h4>
                 </div>
                 <div className="col-3 d-flex justify-content-end align-items-center">
                     <div>

@@ -129,9 +129,17 @@ const ProductCol = ({ handleAdd }) => {
   return (
     localCart.map(product => (
       <div className="productDisplay">
-        <div className="productImgDisplay">
-          <img src={`../${product.productImage}`} alt="pic of product"
-          width="200" height="200"></img> 
+        <div className="product-display-container">
+          <img className="responsive-cart-image" src={`../${product.productImage}`} alt="pic of product"/> 
+          <div className="button-container">
+            <button onClick={() => decreaseItemQuantity(product.productId)}
+              className="btn btn-primary">-</button>
+            <div className="quantity-align">
+              {product.productAmount}
+            </div>
+            <button onClick={() => increaseItemQuantity(product.productId)}
+              className="btn btn-primary">+</button>
+          </div>
         </div>
         <div className="productInfo">
           <div className="productNameDisplay">
@@ -147,20 +155,13 @@ const ProductCol = ({ handleAdd }) => {
             </div>
           </div>
           <div className="controls">
-            <div className="buttonContainer">
-              <button onClick={() => decreaseItemQuantity(product.productId)}
-                className="btn btn-primary btn-sm">-</button>
-              {product.productAmount}
-              <button onClick={() => increaseItemQuantity(product.productId)}
-                className="btn btn-primary btn-sm">+</button>
-            </div>
-            <div>
+            <div className="align-responsive">
               <button onClick={() => removeItemFromCart(product.productId, false)}
-              className="btn btn-danger">Remove from cart</button>
+              className="btn btn-danger btn-responsive">Remove</button>
             </div>
-            <div>
+            <div className="align-responsive">
               <button onClick={() => saveForLater(product)}
-              className="btn btn-info ml-2" >Save for later</button>
+              className="btn btn-info ml-2 btn-responsive" >Save</button>
             </div>
           </div>
         </div>

@@ -15,9 +15,8 @@ const ProductPage = ({ match }) => {
     useEffect(() => { 
         const product = axios
             .get(`/api/product/${endPoint}`)
-            .then(response => {
-                setProduct(response.data[0]);
-            }).catch(error => console.log(error));
+            .then(response => setProduct(response.data[0]))
+            .catch(error => console.log(error));
     }, [endPoint]);
 
     const increaseItemQuantity = () => {
@@ -43,38 +42,43 @@ const ProductPage = ({ match }) => {
         <main>
             <section>
                 <div className="container-fluid">
-                    <div className="d-flex flex-row justify-content-center" style={{paddingTop:"125px", paddingRight:"250px"}} >
-                        <div>
+                    <div className="d-flex flex-row justify-content-center product-row" >
+                        <div className="responsive-pp-image">
                             <img src={`../${product.productImage}`} alt="pic of product"
-                                width="400" height="400"></img> 
+                                className="productpage-img"></img> 
                         </div>
-                        <div className="d-flex flex-column flex-wrap" style={{width:"400px", paddingLeft: "30px"}}>
-                            <h2>{product.productName}</h2>
-                            <h4>${product.productPrice}</h4>
-                            <h3>{product.productDescription}</h3>
-                            <p>{product.detailedDescription}</p>
-                            <div className="flex-row justify-content-center">
-                                <button onClick={decreaseItemQuantity}
-                                    className="btn btn-primary btn-sm">
-                                    -
-                                </button>
-                                {quantity}
-                                <button onClick={increaseItemQuantity}
-                                    className="btn btn-primary btn-sm">
-                                    +
-                                </button>
-                                <button onClick={(e) => { 
-                                        e.preventDefault();
-                                        handleCartAdd(product);}} 
-                                        className="btn btn-primary ml-3">
-                                    Add to cart
-                                </button>
+                        <div className="d-flex flex-column flex-wrap product-column" >
+                            <h2 className="text-responsive">{product.productName}</h2>
+                            <h4 className="text-responsive">${product.productPrice}</h4>
+                            <h3 className="text-responsive">{product.productDescription}</h3>
+                            <p className="text-responsive">{product.detailedDescription}</p>
+                            <div className="flex-row justify-content-center responsive-pp-controls">
                                 <button onClick={(e) => {
                                     e.preventDefault();
                                     handleWishlistAdd(product);}}
-                                    className="btn btn-info btn-md ml-3">
+                                    className="btn btn-info btn-md btn-pp-responsive">
                                     Add to wishlist
                                 </button>
+                                <div className="quantity-pp-responsive ml-3">
+                                    <button onClick={decreaseItemQuantity}
+                                        className="btn btn-primary btn-sm btn-quantity">
+                                        -
+                                    </button>
+                                    <div className="quantity-pp-align">
+                                        {quantity}
+                                    </div>
+                                    <button onClick={increaseItemQuantity}
+                                        className="btn btn-primary btn-sm btn-quantity">
+                                        +
+                                    </button>
+                                </div>
+                                <button onClick={(e) => { 
+                                        e.preventDefault();
+                                        handleCartAdd(product);}} 
+                                        className="btn btn-primary ml-3 btn-pp-responsive">
+                                    Add to cart
+                                </button>
+                                
                             </div>
                         </div>
                     </div>

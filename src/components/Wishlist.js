@@ -18,7 +18,8 @@ const Wishlist = () => {
         removeItemFromWishlist(transferProduct.productId, true);
       } else {
         const updateLocal = [...localCart];
-
+        transferProduct.productAmount = 1;
+        
         updateLocal.push(transferProduct);
 
         setLocalCart(updateLocal);
@@ -76,8 +77,7 @@ const Wishlist = () => {
         wishlist.map(product => (
         <div className="productDisplay">
           <div className="productImgDisplay">
-            <img src={`../${product.productImage}`} alt="pic of product"
-            width="150" height="150"></img> 
+            <img src={`../${product.productImage}`} alt="pic of product" className="responsive-cart-image"/> 
           </div>
           <div className="productInfo">
             <div className="productNameDisplay">
@@ -91,12 +91,14 @@ const Wishlist = () => {
               </div>
             </div>
             <div className="controls">
-              <button className="btn btn-info" 
-              onClick={() => {transferItem(product)}}>
-                  Add to Cart</button>
-              <button className="btn btn-danger ml-4" 
+              <button className="btn btn-danger btn-responsive" 
               onClick={() => {removeItemFromWishlist(product.productId, false)}}>
-                  Remove from Wishlist</button>
+                  Remove
+                </button>
+                <button className="btn btn-info ml-4 btn-responsive" 
+              onClick={() => {transferItem(product)}}>
+                  Add
+                </button>
             </div>
           </div>
         </div>

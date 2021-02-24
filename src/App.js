@@ -38,9 +38,7 @@ function App() {
   async function getProduct() {
     const product = await axios
         .get("/api/product")
-        .then(response => {
-          setProducts(response.data);
-        })
+        .then(response => {setProducts(response.data)})
         .catch(error => console.log(error));
   };
 
@@ -60,7 +58,7 @@ function App() {
   return (
     <main className="App bg-light">
       <Router>
-          <Navbar localCart={localCart}/>
+          <Navbar localCart={localCart} />
           <ContextProvider value={{localCart, setLocalCart, wishlist, setWishlist}}>
             <Switch>
               <Route exact path="/" component={() => <Products products={products} />}/>

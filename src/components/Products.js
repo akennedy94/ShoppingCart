@@ -63,15 +63,16 @@ const Product = ({ products, handleClick, handleWishlist }) => {
                             </Link>
                             <h5 className="font-medium b-30">${product.productPrice}</h5>
                             <div className="row d-flex justify-content-center">
-                                <button onClick={() => handleClick(product)} 
-                                    className="btn btn-md btn-primary">
-                                        Add to Cart
-                                </button>
-                            </div>
-                            <div className="row d-flex justify-content-center mt-2">
                                 <button onClick={() => handleWishlist(product)} 
                                     className="btn btn-md btn-info">
                                         Add to Wishlist
+                                </button>
+                            </div>
+
+                            <div className="row d-flex justify-content-center mt-2">
+                                <button onClick={() => handleClick(product)} 
+                                    className="btn btn-md btn-primary mb-3">
+                                        Add to Cart
                                 </button>
                             </div>
                         </div>

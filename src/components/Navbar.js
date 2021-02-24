@@ -16,8 +16,8 @@ const Navbar = ({ localCart }) => {
                         <li className="nav-item active">
                             <Link to="/" className="nav-link">Home</Link> 
                         </li> 
-                        <li className="nav-item active">
-                            <Link to="/cart" className="nav-link">Cart
+                        <li className="nav-item active ">
+                            <Link to="/cart" className="nav-link nav-align">Cart
                                 <i className="fas fa-shopping-cart pl-2"/>
                                 <NavTotal localCart={localCart} />
                             </Link> 

@@ -19,13 +19,15 @@ Please note that the app is hosted on Heroku's free tier, it will need a minute 
 
 # Info
 
-Backend:
-  Axios
-  NeDB
-  Express
+### Backend:
+    Axios
+    NeDB
+    Express
 
-Frontend:
-  React
-  Bootstrap
+### Frontend:
+    React
+    React Router
+    Bootstrap
+    React-Toastify
 
 This app was bootstrapped with Create React App!

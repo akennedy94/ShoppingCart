@@ -1,16 +1,17 @@
 # ShoppingCart
+
 This is a basic shopping cart app built to demonstrate basic communication between the front end and back end sides of a Node/Express/React application.
 
 # Installation
 
-In root:
------------
+## In root:
 
 npm install
 
 npm start
 
-----------
+---
+
 Server will start on localhost:3001
 
 Alternatively, the app is hosted on Heroku at https://shopping-cart-ex.herokuapp.com/
@@ -20,12 +21,12 @@ Please note that the app is hosted on Heroku's free tier, it will need a minute 
 # Info
 
 Backend:
-  Axios
-  NeDB
-  Express
+Axios
+NeDB
+Express
 
 Frontend:
-  React
-  Bootstrap
+React
+Bootstrap
 
 This app was bootstrapped with Create React App!

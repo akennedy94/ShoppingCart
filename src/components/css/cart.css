@@ -1,163 +1,163 @@
 #productDisplay {
-    min-width: 240px;
-    margin: 1vh auto 0;
-    justify-content: center;
+  min-width: 240px;
+  margin: 1vh auto 0;
+  justify-content: center;
 }
 
 .cart {
-    display: inline-block;
-    width: 100%;
-    margin-left: 1.5vh;
+  display: inline-block;
+  width: 100%;
+  margin-left: 1.5vh;
 }
 
-.cartHeader {  
-    border-style: solid;
-    border-width: 0px 0px .2rem 0px;
-    border-color: rgba(0, 0, 0, .25);
+.cartHeader {
+  border-style: solid;
+  border-width: 0px 0px 0.2rem 0px;
+  border-color: rgba(0, 0, 0, 0.25);
 }
 
 .productColumn {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
 }
 
 .productDisplay {
-    display: flex;
-    padding-top: 2.5vh;
-    padding-bottom: 2.0vh;
-    align-items: center;
-    width: 100%;
-    border-style: solid;
-    border-color: rgba(0, 0, 0, .1);
-    border-width: 0px 0px .2rem 0px;
+  display: flex;
+  padding-top: 2.5vh;
+  padding-bottom: 2vh;
+  align-items: center;
+  width: 100%;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-width: 0px 0px 0.2rem 0px;
 }
 
 .product-display-container {
-    width: 33%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .productInfo {
-    height: 100%;
-    width: 100%;
-    margin-left: 50px;
-    margin-bottom: 50px;
+  height: 100%;
+  width: 100%;
+  margin-left: 50px;
+  margin-bottom: 50px;
 }
 
 .productNameDisplay {
-    display: flex;
-    align-content: flex-start;
+  display: flex;
+  align-content: flex-start;
 }
 
-.priceDisplay{
-    display: flex;
-    width: 75%;
-    justify-content: flex-end;
+.priceDisplay {
+  display: flex;
+  width: 75%;
+  justify-content: flex-end;
 }
 
 .controls {
-    display: flex;
-    margin-top: 25px;
-    align-items: center;
+  display: flex;
+  margin-top: 25px;
+  align-items: center;
 }
 
 .button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .subtotal {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .emptyDisplay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
 }
 
 .responsive-cart-image {
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
+  box-shadow: 5px 5px 15px 2px rgba(0, 0, 0, 0.22);
 }
 
 .quantity-align {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
 }
 
-@media(max-width: 760px) {
-    a {
-        text-align: center;
-    }
+@media (max-width: 760px) {
+  a {
+    text-align: center;
+  }
 
-    .cart {
-        margin-left: 0px;
-    }
-    .responsive-cart-image {
-        max-width: 100px;
-        max-height: 100px;
-        margin-top: 0px;
-    }
+  .cart {
+    margin-left: 0px;
+  }
+  .responsive-cart-image {
+    max-width: 100px;
+    max-height: 100px;
+    margin-top: 0px;
+  }
 
-    .button-container {
-        margin-right: 0px;
-        margin-top: 5px;
-        display: flex;
-    }
+  .button-container {
+    margin-right: 0px;
+    margin-top: 5px;
+    display: flex;
+  }
 
-    .productInfo {
-        margin-left: 0px;
-        margin-bottom: 0px;
-    }
+  .productInfo {
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
 
-    .productNameDisplay {
-        margin-left: 15px;
-    }
+  .productNameDisplay {
+    margin-left: 15px;
+  }
 
-    .priceDisplay {
-        justify-content: center;
-        align-items: center;
-    }
+  .priceDisplay {
+    justify-content: center;
+    align-items: center;
+  }
 
-    .btn-responsive {
-        max-width: 100px;
-        max-height: 100px;
-        width: 85px;
-        padding: 5px, 5px;
-        margin-left: 5px !important;
-        margin-top: 5px;
-    }
+  .btn-responsive {
+    max-width: 100px;
+    max-height: 100px;
+    width: 85px;
+    padding: 5px, 5px;
+    margin-left: 5px !important;
+    margin-top: 5px;
+  }
 
-    .cartHeader {
-        text-align: center;
-    }
+  .cartHeader {
+    text-align: center;
+  }
 
-    .quantity-responsive {
-        font-size: 1.2rem;
-    }
+  .quantity-responsive {
+    font-size: 1.2rem;
+  }
 
-    .controls {
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: center;
-        margin-top: 50px;
-    }
+  .controls {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 50px;
+  }
 
-    .align-responsive {
-        margin-top: 5px;
-    }
+  .align-responsive {
+    margin-top: 5px;
+  }
 
-    .productColumn {
-        width: 100%;
-    }
-
+  .productColumn {
+    width: 100%;
+  }
 }

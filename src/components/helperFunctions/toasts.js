@@ -1,5 +1,4 @@
-
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export const toastAdd = (message) => {
   toast.success(message, {
@@ -9,8 +8,8 @@ export const toastAdd = (message) => {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: false,
-    progress: undefined
-  });        
+    progress: undefined,
+  });
 };
 
 export const toastUpdate = (message) => {
@@ -21,8 +20,8 @@ export const toastUpdate = (message) => {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: false,
-    progress: undefined
-  });        
+    progress: undefined,
+  });
 };
 
 export const toastClear = (message) => {
@@ -33,8 +32,8 @@ export const toastClear = (message) => {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: false,
-    progress: undefined
-  });        
+    progress: undefined,
+  });
 };
 
 export const toastRemove = (message) => {
@@ -45,6 +44,6 @@ export const toastRemove = (message) => {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: false,
-    progress: undefined
-  });        
+    progress: undefined,
+  });
 };
